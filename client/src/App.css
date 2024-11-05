@@ -1,0 +1,8 @@
+body {
+    @apply bg-background;
+    min-height: 100vh;
+}
+
+/* * {
+    border: 0.5px dashed red;
+} */
