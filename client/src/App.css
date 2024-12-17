@@ -6,3 +6,21 @@ body {
 /* * {
     border: 0.5px dashed red;
 } */
+
+.textHeader {
+    font-size: 3rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #FF5722;
+    text-align: start;
+    margin-bottom: 2rem;
+}
+
+.productList {
+    display: flex;
+    flex-direction: column;
+    
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 3rem;
+}

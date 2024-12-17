@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "interface": "nodemon server/interface.js" 
+    "interface": "nodemon server/interface.js", 
+    "dev-client": "cd client && npm run dev"
   },
   "type": "module",
   "keywords": [],
