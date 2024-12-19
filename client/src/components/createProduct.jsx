@@ -1,9 +1,8 @@
 import React from 'react'
-import {  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input} from "@nextui-org/react";
+import {  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input} from "@nextui-org/react";
 
 
-const CreateProduct = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const CreateProduct = ({ isOpen, onClose }) => {
 
     const handleAddProduct = (data) => {
         // Implement your product creation logic here
@@ -15,7 +14,6 @@ const CreateProduct = () => {
 
   return (
         <>
-        <Button onPress={onOpen}>Open Modal</Button>
           <Modal 
             isOpen={isOpen} 
             onOpenChange={onClose}
