@@ -9,9 +9,11 @@ function App() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
-        <div>
+        <div className='root'>
             <NavBar  />
-            
+            <div className='header-container'>
+                <h1 className="text-center textHeader">Products</h1>
+            </div>
             <Products />
         </div>
     )

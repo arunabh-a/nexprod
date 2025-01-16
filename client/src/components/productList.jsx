@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Product from './product'
+import { useProductStore } from '../store/product';
 
 const Products = () => {
+    const { fetchProducts,  products}  = useProductStore();
+
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
+
+    console.log('Products', products);
+
   return (
     <div className='productList'>
-        {/* <Text h1 size={40} css={{textGradient: "45deg, $blue600 -20%, $pink600 50%"}}>Products</Text> */}
-        <h1 className="text-center textHeader">Products</h1>
-        <Product />
+        {products.map((product) => (
+            <Product key={product._id} product={product} />
+        ))}
+
+        {/* <Product /> */}
     </div>
   )
 }
