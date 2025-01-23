@@ -4,6 +4,10 @@
     border: 0.5px dashed red;
 } */
 
+.root {
+    background-color: #222831;
+    height: 100vh;
+}
 .header-container{
     display: flex;
     /* width: 100%; */

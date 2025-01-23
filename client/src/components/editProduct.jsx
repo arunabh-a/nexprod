@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import {  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from "@nextui-org/react";
 import { useProductStore } from '../store/product';
 
 
-const CreateProduct = ({ isOpen, onClose }) => {
+const EditProduct = ({ isOpen, onClose, product }) => {
 
     const showSuccess = () => {
-        toast.success('Product created Successfully.', {
+        toast.success('Product Updated.', {
           style: {
             background: 'green',
             color: 'white',
@@ -36,30 +36,20 @@ const CreateProduct = ({ isOpen, onClose }) => {
           },
         });
       };
+    
 
-    const [newproduct, setNewProduct] = React.useState({
-        name: '',
-        price: '',
-        image: '',
-        brand: '',
+    const [updatedproduct, setUpdatedProduct] = useState(product);
 
-    });
-
-    const { createProduct } = useProductStore();
-    const handleAddProduct = async () => {
-        const {success, message} = await createProduct(newproduct);
+    const { updateProduct } = useProductStore();
+    const handleUpdateProduct = async (id, updatedProduct) => {
+        const {success, message} = await updateProduct(id, updatedproduct);
         if (success) {
             showSuccess();
         }
         else if (!success) {
             showError();
         }
-        setNewProduct({
-            name: '',
-            price: '',
-            image: '',
-            brand: '',
-        });
+        onClose();
       };
 
 
@@ -81,16 +71,16 @@ const CreateProduct = ({ isOpen, onClose }) => {
                         isRequired
                         label="Name"
                         placeholder="Product Name"
-                        value={newproduct.name}
-                        onChange={(e) => setNewProduct({ ...newproduct, name: e.target.value })}
+                        value={updatedproduct.name}
+                        onChange={(e) => setUpdatedProduct({ ...updatedproduct, name: e.target.value })}
                         variant="flat"/>
                     <Input
                         isRequired
                         label="Price"
                         placeholder="0.00"
                         type="number"
-                        value={newproduct.price}
-                        onChange={(e) => setNewProduct({ ...newproduct, price: e.target.value })}
+                        value={updatedproduct.price}
+                        onChange={(e) => setUpdatedProduct({ ...updatedproduct, price: e.target.value })}
                         variant="flat"
                         startContent={<div className="pointer-events-none flex items-center">
                             <span className="text-white text-small">₹</span></div>}
@@ -99,24 +89,21 @@ const CreateProduct = ({ isOpen, onClose }) => {
                         isRequired
                         label="Image URL"
                         placeholder="Image Link"
-                        value={newproduct.image}
-                        onChange={(e) => setNewProduct({ ...newproduct, image: e.target.value })}
+                        value={updatedproduct.image}
+                        onChange={(e) => setUpdatedProduct({ ...updatedproduct, image: e.target.value })}
                         variant="flat"/>
                     <Input
                         isRequired
                         label="Brand"
                         placeholder="Product Brand"
-                        value={newproduct.brand}
-                        onChange={(e) => setNewProduct({ ...newproduct, brand: e.target.value })}
+                        value={updatedproduct.brand}
+                        onChange={(e) => setUpdatedProduct({ ...updatedproduct, brand: e.target.value })}
                         variant="flat"/>
 
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                      Close
-                    </Button>
-                    <Button color="success" variant='flat' onPress={handleAddProduct}>
-                      Add
+                    <Button color="success" variant='flat' onPress={() => handleUpdateProduct(product._id, updatedproduct)}>
+                      Update
                     </Button>
                     <Toaster
                         position="bottom-center"
@@ -147,4 +134,4 @@ const CreateProduct = ({ isOpen, onClose }) => {
       );
     }
 
-export default CreateProduct
+export default EditProduct

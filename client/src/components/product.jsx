@@ -1,8 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, CardHeader, CardBody, Image, CardFooter, Button, ButtonGroup } from '@nextui-org/react';
-import { DeleteIcon, Edit2Icon, Trash2Icon } from 'lucide-react';
+import { Edit2Icon, Trash2Icon } from 'lucide-react';
+import { useProductStore } from '../store/product';
+import toast, { Toaster } from 'react-hot-toast';
+import EditProduct from './editProduct';
 
 const Product = ({ product }) => {
+
+    const showSuccess = () => {
+        toast.success('Product created Successfully.', {
+        style: {
+            background: 'green',
+            color: 'white',
+            padding: '16px',
+            borderRadius: '8px',
+        },
+        iconTheme: {
+            primary: 'white',
+            secondary: 'green',
+        },
+        });
+    };
+    const showError = () => {
+        toast.error('Something went wrong.', {
+        style: {
+            background: 'red',
+            color: 'white',
+            padding: '16px',
+            borderRadius: '8px',
+        },
+        iconTheme: {
+            primary: 'white',
+            secondary: 'red',
+        },
+        });
+    };
+    
+    const [isOpen, setIsOpen] = useState(false);
+    const onOpen = () => setIsOpen(true);
+    const onClose = () => setIsOpen(false);
+
+    const { deleteProduct } = useProductStore();
+
+    const handleDeleteProduct = async () => {
+        const {success, message} =  await deleteProduct(product._id);
+        if (success) {
+            showSuccess();
+        }
+        else {
+            showError();
+        }
+    }
+
   return (
     <Card
     isPressable
@@ -30,16 +79,38 @@ const Product = ({ product }) => {
     </CardBody>
     <CardFooter>
     <ButtonGroup>
-        <Button color="primary" size='md' radius='xl' variant="light" className="bg-background">
+        <Button color="primary" size='md' radius='xl' onClick={onOpen} variant="light" className="bg-background">
             <Edit2Icon size={20}/>
         </Button>
-        <Button color="primary" size='md' radius='xl' variant="light" className="bg-background">
+        <Button color="primary" size='md' onClick={handleDeleteProduct} radius='xl' variant="light" className="bg-background">
             <Trash2Icon size={20}/>
         </Button>
     </ButtonGroup>
     </CardFooter>
+    <Toaster
+        position="bottom-center"
+        reverseOrder={true}
+        toastOptions={{
+        success: {
+            style: {
+            background: 'green',
+            color: 'white',
+            borderRadius: '8px',
+            },
+        },
+        error: {
+            style: {
+            background: 'red',
+            color: 'white',
+            borderRadius: '8px',
+            },
+        },
+        }}
+    />
+    <EditProduct isOpen={isOpen} onClose={onClose} product={product} />
 
   </Card>
+  
     
   )
 }

@@ -9,7 +9,6 @@ const Products = () => {
         fetchProducts();
     }, [fetchProducts]);
 
-    console.log('Products', products);
 
   return (
     <div className='productList'>

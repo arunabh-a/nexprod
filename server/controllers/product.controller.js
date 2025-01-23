@@ -50,7 +50,7 @@ export const updateProduct = async (request, response) => {
 };
 
 export const deleteProduct = async (request, response) => {
-
+    let { id } = request.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return response.status(404).json({ success: false, message:  "Invalid product id" });
     }
