@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-
+const api = 'https://nexprod-interface.onrender.com';
 export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({ products }),
@@ -7,7 +7,7 @@ export const useProductStore = create((set) => ({
         if (!newproduct.name || !newproduct.price || !newproduct.image) {
             return { success: false, message: 'Please fill all fields' };
         }
-        const response = await fetch('/api/products', {
+        const response = await fetch(api +'/api/products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,13 +20,13 @@ export const useProductStore = create((set) => ({
     },
 
     fetchProducts: async () => {
-        const response = await fetch('/api/products');
+        const response = await fetch(api +'/api/products');
         const data = await response.json();
         set({ products: data });
     },
 
     deleteProduct: async (id) => {
-		const res = await fetch(`/api/products/${id}`, {
+		const res = await fetch(api +`/api/products/${id}`, {
 			method: "DELETE",
 		});
 		const data = await res.json();
@@ -37,7 +37,7 @@ export const useProductStore = create((set) => ({
 		return { success: true, message: data.message };
 	},
 	updateProduct: async (id, updatedProduct) => {
-		const res = await fetch(`/api/products/${id}`, {
+		const res = await fetch(api +`/api/products/${id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
