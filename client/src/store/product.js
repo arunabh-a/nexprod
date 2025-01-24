@@ -1,4 +1,6 @@
-import {create} from 'zustand';
+import { create } from "zustand";
+
+// import create from 'zustand';
 const api = 'https://nexprod-interface.onrender.com';
 export const useProductStore = create((set) => ({
     products: [],
