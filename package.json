@@ -15,11 +15,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "lucide-react": "^0.471.1",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.0",
-    "react-hot-toast": "^2.5.1",
-    "zustand": "^5.0.3"
+    "mongoose": "^8.8.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
